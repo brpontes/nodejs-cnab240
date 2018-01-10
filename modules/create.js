@@ -27,34 +27,52 @@ const create = (shipping) => {
     }
 
     const segmento_p = ( shipping_detail ) => {
-        let header = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}300000P ${shipping_detail.cod_mov}`
-        header += `${leftPad(HEADER.AGENCIA, 6, '0')}${leftPad(HEADER.NUMERO_CONTA, 13, '0')}0${leftPad(shipping_detail.nosso_numero, 20, '0')}`
-        header += `${DETAIL.COD_CARTEIRA}${DETAIL.FORMA_CADASTRAMENTO}0${DETAIL.TIPO_EMISSAO}${DETAIL.TIPO_DISTRIBUICAO}`
-        header += `${leftPad(shipping_detail.numero_documento, 15)}${shipping_detail.data_vencimento}${shipping_detail.valor_titulo}`
-        header += `${leftPad('', 5, '0')} ${DETAIL.ESPECIE}${DETAIL.ACEITE}${shipping_detail.data_emissao}`
-        header += `${DETAIL.COD_JUROS}${DETAIL.DATA_JUROS}${DETAIL.JUROS}${DETAIL.COD_DESCONTO}${DETAIL.DATA_DESCONTO}${DETAIL.DESCONTO}`
-        header += `${DETAIL.IOF}${DETAIL.ABATIMENTO}${leftPad(shipping_detail.numero_documento, 25)}${DETAIL.COD_PROTESTO}`
-        header += `${DETAIL.NUM_DIAS_PROTESTO}${DETAIL.COD_BAIXA}${DETAIL.NUM_DIAS_BAIXA}${DETAIL.MOEDA}${leftPad('', 10, '0')} ${os.EOL}`
+        let segmento = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}300000P ${shipping_detail.cod_mov}`
+        segmento += `${leftPad(HEADER.AGENCIA, 6, '0')}${leftPad(HEADER.NUMERO_CONTA, 13, '0')}0${leftPad(shipping_detail.nosso_numero, 20, '0')}`
+        segmento += `${DETAIL.COD_CARTEIRA}${DETAIL.FORMA_CADASTRAMENTO}0${DETAIL.TIPO_EMISSAO}${DETAIL.TIPO_DISTRIBUICAO}`
+        segmento += `${leftPad(shipping_detail.numero_documento, 15)}${shipping_detail.data_vencimento}${shipping_detail.valor_titulo}`
+        segmento += `${leftPad('', 5, '0')} ${DETAIL.ESPECIE}${DETAIL.ACEITE}${shipping_detail.data_emissao}`
+        segmento += `${DETAIL.COD_JUROS}${DETAIL.DATA_JUROS}${DETAIL.JUROS}${DETAIL.COD_DESCONTO}${DETAIL.DATA_DESCONTO}${DETAIL.DESCONTO}`
+        segmento += `${DETAIL.IOF}${DETAIL.ABATIMENTO}${leftPad(shipping_detail.numero_documento, 25)}${DETAIL.COD_PROTESTO}`
+        segmento += `${DETAIL.NUM_DIAS_PROTESTO}${DETAIL.COD_BAIXA}${DETAIL.NUM_DIAS_BAIXA}${DETAIL.MOEDA}${leftPad('', 10, '0')} ${os.EOL}`
 
-        return header
+        return segmento
     }
 
     const segmento_q = ( shipping_detail ) => {
-        let header = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}300000Q ${shipping_detail.cod_mov}`
-        header += `${shipping_detail.tipo_inscricao_pagador}${leftPad(shipping_detail.inscricao_pagador, 15, '0')}`
-        header += `${leftPad(shipping_detail.nome_pagador, 40)}${leftPad(shipping_detail.endereco_pagador, 40)}`
-        header += `${leftPad(shipping_detail.bairro_pagador, 15)}${shipping_detail.cep_pagador}${leftPad(shipping_detail.cidade_pagador, 15)}`
-        header += `${shipping_detail.uf_pagador}${leftPad('', 16, '0')}${leftPad('', 40)}000${leftPad('', 28)}${os.EOL}`
+        let segmento = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}300000Q ${shipping_detail.cod_mov}`
+        segmento += `${shipping_detail.tipo_inscricao_pagador}${leftPad(shipping_detail.inscricao_pagador, 15, '0')}`
+        segmento += `${leftPad(shipping_detail.nome_pagador, 40)}${leftPad(shipping_detail.endereco_pagador, 40)}`
+        segmento += `${leftPad(shipping_detail.bairro_pagador, 15)}${shipping_detail.cep_pagador}${leftPad(shipping_detail.cidade_pagador, 15)}`
+        segmento += `${shipping_detail.uf_pagador}${leftPad('', 16, '0')}${leftPad('', 40)}000${leftPad('', 28)}${os.EOL}`
 
-        return header
+        return segmento
     }
 
     const segmento_r = ( shipping_detail ) => {
-        let header = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}300000R ${shipping_detail.cod_mov}`
-        header += `${leftPad('', 48, '0')}${leftPad('', 34, '0')}${leftPad('', 100)}${leftPad('', 32, '0')}`
-        header += `${leftPad('', 9)}${os.EOL}`
+        let segmento = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}300000R ${shipping_detail.cod_mov}`
+        segmento += `${leftPad('', 48, '0')}${leftPad('', 34, '0')}${leftPad('', 100)}${leftPad('', 32, '0')}`
+        segmento += `${leftPad('', 9)}${os.EOL}`
 
-        return header
+        return segmento
+    }
+
+    const trailer_lote = ( shipping ) => {
+        const SHIPPING_STRING_LENGTH = shipping.length * 3 + 3
+
+        let trailer = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}5${leftPad('', 9)}`
+        trailer += `${leftPad(SHIPPING_STRING_LENGTH, 6, '0')}${leftPad('', 217)}${os.EOL}`
+
+        return trailer
+    }
+
+    const trailer_file = ( shipping ) => {
+        const SHIPPING_STRING_LENGTH = shipping.length * 3 + 4
+        
+        let trailer = `${HEADER.COD_BANCO}99999${leftPad('', 9)}${leftPad('1', 6, '0')}`
+        trailer += `${leftPad(SHIPPING_STRING_LENGTH, 6, '0')}${leftPad('', 211)}`
+
+        return trailer
     }
 
     return new Promise((resolve, reject) => {
@@ -62,12 +80,9 @@ const create = (shipping) => {
 
         const get_header = `${header_file()}${header_lote()}`
         const get_content = shipping.map( (el, idx) => shipping_content(el) ).join('')
+        const get_trailer = `${trailer_lote(shipping)}${trailer_file(shipping)}`
 
-        fs.writeFile('C:/A/file.txt', `${get_header}${get_content}`, (err) => {
-            if ( err ) console.log(err)
-
-            console.log('Arquivo gerado com sucesso!')
-        })
+        resolve(`${get_header}${get_content}${get_trailer}`)
     })
 
 }
