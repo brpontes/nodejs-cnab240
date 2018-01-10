@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "Geração de remessa no padrão cnab240 para diversos bancos.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brunodev18/nodejs-cnab240.git"
   },
+  "scripts": {},
   "author": "Bruno Pontes",
   "license": "ISC",
   "dependencies": {

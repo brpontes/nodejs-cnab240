@@ -1,5 +1,5 @@
-const validate = require('../modules/validate')
-const create = require('../modules/create')
+const validate = require('./modules/validate')
+const create = require('./modules/create')
 
 module.exports = (() => {
 
