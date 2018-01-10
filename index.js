@@ -1,8 +1,21 @@
-const cnab240 = require('./lib')
-const fs = require('fs')
-const data = require('./datasource')
+const validate = require('../modules/validate')
+const create = require('../modules/create')
 
-cnab240
-    .init( data )
-    .then( result => fs.writeFileSync('C:/A/file.txt', result) )
-    .catch( err => console.log(err) )
+module.exports = (() => {
+
+    const init = ( shipping ) => {
+        return new Promise((resolve, reject) => {
+            if ( !shipping ) throw 'Deve conter um array de objetos'
+
+            validate( shipping )
+            .then( create )
+            .then( result => resolve(result))
+            .catch( err => reject(err) )
+        })
+    }
+
+    return {
+        init: (shipping) => init(shipping)
+    }
+
+})()
