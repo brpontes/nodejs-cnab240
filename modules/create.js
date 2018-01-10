@@ -5,6 +5,8 @@ const { HEADER, DETAIL } = require('../layouts/bb/contants')
 
 const create = (shipping) => {
     
+    let NUMERO_REGISTRO = 0
+
     const header_file = () => {
         let header = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_ARQUIVO}${HEADER.TIPO_REGISTRO_ARQUIVO}${leftPad('', 9)}`
         header += `${HEADER.TIPO_INSCRICAO}${leftPad(HEADER.INSCRICAO, 14, '0')}`
@@ -27,7 +29,7 @@ const create = (shipping) => {
     }
 
     const segmento_p = ( shipping_detail ) => {
-        let segmento = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}300000P ${shipping_detail.cod_mov}`
+        let segmento = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}3${leftPad(++NUMERO_REGISTRO, 5, '0')}P ${shipping_detail.cod_mov}`
         segmento += `${leftPad(HEADER.AGENCIA, 6, '0')}${leftPad(HEADER.NUMERO_CONTA, 13, '0')}0${leftPad(shipping_detail.nosso_numero, 20, '0')}`
         segmento += `${DETAIL.COD_CARTEIRA}${DETAIL.FORMA_CADASTRAMENTO}0${DETAIL.TIPO_EMISSAO}${DETAIL.TIPO_DISTRIBUICAO}`
         segmento += `${leftPad(shipping_detail.numero_documento, 15)}${shipping_detail.data_vencimento}${shipping_detail.valor_titulo}`
@@ -40,7 +42,7 @@ const create = (shipping) => {
     }
 
     const segmento_q = ( shipping_detail ) => {
-        let segmento = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}300000Q ${shipping_detail.cod_mov}`
+        let segmento = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}3${leftPad(++NUMERO_REGISTRO, 5, '0')}Q ${shipping_detail.cod_mov}`
         segmento += `${shipping_detail.tipo_inscricao_pagador}${leftPad(shipping_detail.inscricao_pagador, 15, '0')}`
         segmento += `${leftPad(shipping_detail.nome_pagador, 40)}${leftPad(shipping_detail.endereco_pagador, 40)}`
         segmento += `${leftPad(shipping_detail.bairro_pagador, 15)}${shipping_detail.cep_pagador}${leftPad(shipping_detail.cidade_pagador, 15)}`
@@ -50,7 +52,7 @@ const create = (shipping) => {
     }
 
     const segmento_r = ( shipping_detail ) => {
-        let segmento = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}300000R ${shipping_detail.cod_mov}`
+        let segmento = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}3${leftPad(++NUMERO_REGISTRO, 5, '0')}R ${shipping_detail.cod_mov}`
         segmento += `${leftPad('', 48, '0')}${leftPad('', 34, '0')}${leftPad('', 100)}${leftPad('', 32, '0')}`
         segmento += `${leftPad('', 9)}${os.EOL}`
 
