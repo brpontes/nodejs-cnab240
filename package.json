@@ -1,0 +1,15 @@
+{
+  "name": "nodejs-remessa-cnab240",
+  "version": "1.0.0",
+  "description": "Geração de remessa no padrão cnab240 para diversos bancos.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bruno Pontes",
+  "license": "ISC",
+  "dependencies": {
+    "left-pad": "^1.2.0",
+    "moment": "^2.20.1"
+  }
+}
