@@ -58,6 +58,7 @@ const create = (shipping) => {
     }
 
     const trailer_lote = ( shipping ) => {
+        //Quantidade de registros * 3 (QUANTIDADE DE SEGMENTOS) + 3 ( HEADER DE ARQUIVO E LOTE E TRAILER DE LOTE )
         const SHIPPING_STRING_LENGTH = shipping.length * 3 + 3
 
         let trailer = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}5${leftPad('', 9)}`
@@ -67,6 +68,7 @@ const create = (shipping) => {
     }
 
     const trailer_file = ( shipping ) => {
+        //Quantidade de registros * 3 (QUANTIDADE DE SEGMENTOS) + 4 ( HEADERS E TRAILERS )
         const SHIPPING_STRING_LENGTH = shipping.length * 3 + 4
         
         let trailer = `${HEADER.COD_BANCO}99999${leftPad('', 9)}${leftPad('1', 6, '0')}`
@@ -79,7 +81,7 @@ const create = (shipping) => {
         const shipping_content = (el) => `${segmento_p(el)}${segmento_q(el)}${segmento_r(el)}`
 
         const get_header = `${header_file()}${header_lote()}`
-        const get_content = shipping.map( (el, idx) => shipping_content(el) ).join('')
+        const get_content = shipping.map( shipping_content ).join('')
         const get_trailer = `${trailer_lote(shipping)}${trailer_file(shipping)}`
 
         resolve(`${get_header}${get_content}${get_trailer}`)
