@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-remessa-cnab240",
+  "name": "nodejs-cnab240",
   "version": "1.0.0",
   "description": "Geração de remessa no padrão cnab240 para diversos bancos.",
   "main": "index.js",
