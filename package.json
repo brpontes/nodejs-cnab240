@@ -1,6 +1,6 @@
 {
   "name": "nodejs-cnab240",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Geração de remessa no padrão cnab240 para diversos bancos.",
   "main": "index.js",
   "repository": {
@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "left-pad": "^1.2.0",
-    "moment": "^2.20.1"
+    "moment": "^2.20.1",
+    "right-pad": "^1.0.1"
   }
 }

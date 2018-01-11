@@ -1,4 +1,5 @@
 const leftPad = require('left-pad')
+const rightPad = require('right-pad')
 const os = require('os')
 const fs = require('fs')
 const { HEADER, DETAIL } = require('../layouts/bb/contants')
@@ -38,7 +39,7 @@ const create = (shipping) => {
         shipping_detail.desconto = shipping_detail.desconto || DETAIL.DESCONTO
 
         let segmento = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}3${leftPad(++NUMERO_REGISTRO, 5, '0')}P ${shipping_detail.cod_mov}`
-        segmento += `${leftPad(HEADER.AGENCIA, 6, '0')}${leftPad(HEADER.NUMERO_CONTA, 13, '0')}0${leftPad(shipping_detail.nosso_numero, 20, '0')}`
+        segmento += `${leftPad(HEADER.AGENCIA, 6, '0')}${leftPad(HEADER.NUMERO_CONTA, 13, '0')}0${rightPad(shipping_detail.nosso_numero, 20, ' ')}`
         segmento += `${DETAIL.COD_CARTEIRA}${DETAIL.FORMA_CADASTRAMENTO}0${DETAIL.TIPO_EMISSAO}${DETAIL.TIPO_DISTRIBUICAO}`
         segmento += `${leftPad(shipping_detail.numero_documento, 15)}${shipping_detail.data_vencimento}${shipping_detail.valor_titulo}`
         segmento += `${leftPad('', 5, '0')} ${DETAIL.ESPECIE}${DETAIL.ACEITE}${shipping_detail.data_emissao}`
