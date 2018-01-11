@@ -98,7 +98,7 @@ const create = (shipping) => {
 
         const get_header = `${header_file()}${header_lote()}`
         const get_content = shipping.map( shipping_content ).join('')
-        const get_trailer = `${trailer_lote(shipping)}${trailer_file(shipping)}`
+        const get_trailer = `${trailer_lote(shipping)}${trailer_file(shipping)}${os.EOL}`
 
         resolve(`${get_header}${get_content}${get_trailer}`)
     })
