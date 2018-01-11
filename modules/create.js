@@ -74,8 +74,8 @@ const create = (shipping) => {
     }
 
     const trailer_lote = ( shipping ) => {
-        //Quantidade de registros * 3 (QUANTIDADE DE SEGMENTOS) + 3 ( HEADER DE ARQUIVO E LOTE E TRAILER DE LOTE )
-        const SHIPPING_STRING_LENGTH = shipping.length * 3 + 3
+        //Quantidade de registros * 3 (QUANTIDADE DE SEGMENTOS) + 3 ( HEADER DE LOTE E TRAILER DE LOTE )
+        const SHIPPING_STRING_LENGTH = shipping.length * 3 + 2
 
         let trailer = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}5${leftPad('', 9)}`
         trailer += `${leftPad(SHIPPING_STRING_LENGTH, 6, '0')}${leftPad('', 217)}${os.EOL}`
