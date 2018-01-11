@@ -7,8 +7,9 @@ const { validCodMov,
         validJurosKind,
         validMultaKind,
         validDescontoKind,
-        validUF 
-    } = require('./params')
+        validUF,
+        isValidCPF,
+        isValidCNPJ } = require('./params')
 const NOSSO_NUMERO_LENGTH = 17
 
 const validate = ( shipment ) => {
@@ -106,8 +107,8 @@ const validate = ( shipment ) => {
             if ( !el.inscricao_pagador ) {
                 reject(`Parâmetro \`inscricao_pagador\` é obrigatório ${objectIndex}`)            
             } else if ( 
-                (el.tipo_inscricao_pagador == '1' && el.inscricao_pagador.length != 11) ||
-                (el.tipo_inscricao_pagador == '2' && el.inscricao_pagador.length != 14)
+                (el.tipo_inscricao_pagador == '1' && !isValidCPF(el.inscricao_pagador) ) ||
+                (el.tipo_inscricao_pagador == '2' && !isValidCNPJ(el.inscricao_pagador) )
             ) {
                 reject(`\`inscricao_pagador\` inválido ${objectIndex}`)                            
             }
