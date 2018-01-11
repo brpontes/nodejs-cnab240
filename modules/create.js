@@ -29,12 +29,21 @@ const create = (shipping) => {
     }
 
     const segmento_p = ( shipping_detail ) => {
+        
+        shipping_detail.tipo_juros = shipping_detail.tipo_juros || DETAIL.COD_JUROS
+        shipping_detail.data_juros =  shipping_detail.data_juros || DETAIL.DATA_JUROS
+        shipping_detail.juros = shipping_detail.juros || DETAIL.JUROS
+        shipping_detail.tipo_desconto = shipping_detail.tipo_desconto || DETAIL.COD_DESCONTO
+        shipping_detail.data_desconto =  shipping_detail.data_desconto || DETAIL.DATA_DESCONTO
+        shipping_detail.desconto = shipping_detail.desconto || DETAIL.DESCONTO
+
         let segmento = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}3${leftPad(++NUMERO_REGISTRO, 5, '0')}P ${shipping_detail.cod_mov}`
         segmento += `${leftPad(HEADER.AGENCIA, 6, '0')}${leftPad(HEADER.NUMERO_CONTA, 13, '0')}0${leftPad(shipping_detail.nosso_numero, 20, '0')}`
         segmento += `${DETAIL.COD_CARTEIRA}${DETAIL.FORMA_CADASTRAMENTO}0${DETAIL.TIPO_EMISSAO}${DETAIL.TIPO_DISTRIBUICAO}`
         segmento += `${leftPad(shipping_detail.numero_documento, 15)}${shipping_detail.data_vencimento}${shipping_detail.valor_titulo}`
         segmento += `${leftPad('', 5, '0')} ${DETAIL.ESPECIE}${DETAIL.ACEITE}${shipping_detail.data_emissao}`
-        segmento += `${DETAIL.COD_JUROS}${DETAIL.DATA_JUROS}${DETAIL.JUROS}${DETAIL.COD_DESCONTO}${DETAIL.DATA_DESCONTO}${DETAIL.DESCONTO}`
+        segmento += `${shipping_detail.tipo_juros}${shipping_detail.data_juros}${shipping_detail.juros}`
+        segmento += `${shipping_detail.tipo_desconto}${shipping_detail.data_desconto}${shipping_detail.desconto}`
         segmento += `${DETAIL.IOF}${DETAIL.ABATIMENTO}${leftPad(shipping_detail.numero_documento, 25)}${DETAIL.COD_PROTESTO}`
         segmento += `${DETAIL.NUM_DIAS_PROTESTO}${DETAIL.COD_BAIXA}${DETAIL.NUM_DIAS_BAIXA}${DETAIL.MOEDA}${leftPad('', 10, '0')} ${os.EOL}`
 
@@ -52,9 +61,14 @@ const create = (shipping) => {
     }
 
     const segmento_r = ( shipping_detail ) => {
+
+        shipping_detail.tipo_multa = shipping_detail.tipo_multa || DETAIL.COD_MULTA
+        shipping_detail.data_multa =  shipping_detail.data_multa || DETAIL.DATA_MULTA
+        shipping_detail.multa = shipping_detail.multa || DETAIL.MULTA
+
         let segmento = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}3${leftPad(++NUMERO_REGISTRO, 5, '0')}R ${shipping_detail.cod_mov}`
-        segmento += `${leftPad('', 48, '0')}${leftPad('', 34, '0')}${leftPad('', 100)}${leftPad('', 32, '0')}`
-        segmento += `${leftPad('', 9)}${os.EOL}`
+        segmento += `${leftPad('', 48, '0')}${shipping_detail.tipo_multa}${shipping_detail.data_multa}${shipping_detail.multa}${leftPad('', 10, '0')}`
+        segmento += `${leftPad('', 100)}${leftPad('', 32, '0')}${leftPad('', 9)}${os.EOL}`
 
         return segmento
     }

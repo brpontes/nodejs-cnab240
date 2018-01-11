@@ -2,13 +2,14 @@ const moment = require('moment')
 const leftPad = require('left-pad')
 const TODAY = moment()
 const { HEADER } = require('../layouts/bb/contants')
+const { validCodMov, 
+        validInscKind,
+        validJurosKind,
+        validMultaKind,
+        validDescontoKind,
+        validUF 
+    } = require('./params')
 const NOSSO_NUMERO_LENGTH = 17
-
-const validCodMov = ['01', '02', '04', '05', '06', '07', '08', '09', '10', '30', '31', '40']
-const validInscKind = ['1', '2']
-const validUF = ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES',
-    'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ',
-    'RN', 'RO', 'RS', 'RR', 'SC', 'SE', 'SP', 'TO']
 
 const validate = ( shipment ) => {
     return new Promise((resolve, reject) => {
@@ -112,7 +113,7 @@ const validate = ( shipment ) => {
             }
 
             obj.inscricao_pagador = el.tipo_inscricao_pagador == '1' 
-                ? el.inscricao_pagador.substring(0, 11)  : el.inscricao_pagador.substring(0, 14)
+                ? el.inscricao_pagador.substring(0, 11) : el.inscricao_pagador.substring(0, 14)
             /*
             * Validação do nome do pagador
             */
@@ -163,10 +164,99 @@ const validate = ( shipment ) => {
             } else if ( !validUF.includes(el.uf_pagador) ) {
                 reject(`\`uf_pagador\` inválido ${objectIndex}`)
             }
+            /*
+            * 
+            * CAMPOS NÃO OBRIGATÓRIOS
+            *
+            */
+            /*
+            * Validação do campo juros
+            */
+            //Se houver alguma propriedade relacionada a JUROS
+            //Todos as outras propriedades que tem relação com o mesmo passam a ser obrigatórios
+            if ( el.tipo_juros || el.data_juros || el.juros ) {
+                if ( !el.tipo_juros ) {
+                    reject(`Parâmetro \`tipo_juros\` é obrigatório ${objectIndex}`)
+                } else if ( !el.data_juros ) {
+                    reject(`Parâmetro \`data_juros\` é obrigatório ${objectIndex}`)
+                } else if ( !el.juros ) {
+                    reject(`Parâmetro \`juros\` é obrigatório ${objectIndex}`)
+                }
+
+                if ( !validJurosKind.includes(el.tipo_juros) ) {
+                    reject(`\`tipo_juros\` inválido ${objectIndex}`)
+                } else if ( !(el.data_juros instanceof Date) ) {
+                    reject(`\`data_juros\` deve ser instância do objeto Date ${objectIndex}`)         
+                } else if ( typeof el.juros != 'number' ) {
+                    reject(`\`juros\` deve ser um número real ${objectIndex}`)                        
+                }
+                
+                obj.data_juros = moment(el.data_juros).diff(el.data_vencimento, 'days') < 0
+                    ? moment(el.data_vencimento).format('DDMMYYYY')
+                    : moment(el.data_juros).format('DDMMYYYY')
+
+                const VALOR_JUROS_STRING = (Math.abs(parseFloat(el.juros))).toFixed(2).replace('.', '')
+                    obj.juros = leftPad(VALOR_JUROS_STRING, 15, 0)
+            }
+            /*
+            * Validação do campo multa
+            */
+            //Se houver alguma propriedade relacionada a MULTA
+            //Todos as outras propriedades que tem relação com o mesmo passam a ser obrigatórios
+            if ( el.tipo_multa || el.data_multa || el.multa ) {
+                if ( !el.tipo_multa ) {
+                    reject(`Parâmetro \`tipo_multa\` é obrigatório ${objectIndex}`)
+                } else if ( !el.data_multa ) {
+                    reject(`Parâmetro \`data_multa\` é obrigatório ${objectIndex}`)
+                } else if ( !el.multa ) {
+                    reject(`Parâmetro \`multa\` é obrigatório ${objectIndex}`)
+                }
+
+                if ( !validMultaKind.includes(el.tipo_multa) ) {
+                    reject(`\`tipo_multa\` inválido ${objectIndex}`)
+                } else if ( !(el.data_multa instanceof Date) ) {
+                    reject(`\`data_multa\` deve ser instância do objeto Date ${objectIndex}`)         
+                } else if ( typeof el.multa != 'number' ) {
+                    reject(`\`juros\` deve ser um número real ${objectIndex}`)                        
+                }
+                
+                obj.data_multa = moment(el.data_multa).diff(el.data_vencimento, 'days') < 0
+                    ? moment(el.data_vencimento).format('DDMMYYYY')
+                    : moment(el.data_multa).format('DDMMYYYY')
+
+                const VALOR_MULTA_STRING = (Math.abs(parseFloat(el.multa))).toFixed(2).replace('.', '')
+                    obj.multa = leftPad(VALOR_MULTA_STRING, 15, 0)
+            }
+            //Se houver alguma propriedade relacionada a DESCONTO
+            //Todos as outras propriedades que tem relação com o mesmo passam a ser obrigatórios
+            if ( el.tipo_desconto || el.data_desconto || el.desconto ) {
+                if ( !el.tipo_desconto ) {
+                    reject(`Parâmetro \`tipo_desconto\` é obrigatório ${objectIndex}`)
+                } else if ( !el.data_desconto ) {
+                    reject(`Parâmetro \`data_desconto\` é obrigatório ${objectIndex}`)
+                } else if ( !el.desconto ) {
+                    reject(`Parâmetro \`desconto\` é obrigatório ${objectIndex}`)
+                }
+
+                if ( !validDescontoKind.includes(el.tipo_desconto) ) {
+                    reject(`\`tipo_desconto\` inválido ${objectIndex}`)
+                } else if ( !(el.data_desconto instanceof Date) ) {
+                    reject(`\`data_desconto\` deve ser instância do objeto Date ${objectIndex}`)         
+                } else if ( typeof el.desconto != 'number' ) {
+                    reject(`\`desconto\` deve ser um número real ${objectIndex}`)                        
+                }
+                
+                obj.data_desconto = moment(el.data_desconto).diff(el.data_vencimento, 'days') < 0
+                    ? moment(el.data_vencimento).format('DDMMYYYY')
+                    : moment(el.data_desconto).format('DDMMYYYY')
+
+                const VALOR_DESCONTO_STRING = (Math.abs(parseFloat(el.desconto))).toFixed(2).replace('.', '')
+                    obj.desconto = leftPad(VALOR_DESCONTO_STRING, 15, 0)
+            }
 
             return obj
-        }
-
+        }    
+        
         if ( !(shipment instanceof Object) ) reject('Deve ser um array de objetos')
         
         resolve(shipment.map( isValidShipping ))
