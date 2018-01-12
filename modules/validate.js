@@ -118,27 +118,24 @@ const validate = ( shipment ) => {
             /*
             * Validação do nome do pagador
             */
-            if ( !el.nome_pagador ) {
+            if ( !el.nome_pagador ) 
                 reject(`Parâmetro \`nome_pagador\` é obrigatório ${objectIndex}`)                            
-            } else if ( el.nome_pagador.length > 40 ) {
-                obj.nome_pagador = el.nome_pagador.substring(0, 40)
-            }
+            
+            obj.nome_pagador = el.nome_pagador.toString().substring(0, 40)
             /*
             * Validação do endereço do pagador
             */
-            if ( !el.endereco_pagador ) {
+            if ( !el.endereco_pagador ) 
                 reject(`Parâmetro \`endereco_pagador\` é obrigatório ${objectIndex}`)
-            } else if ( el.endereco_pagador.length > 40 ) {
-                obj.endereco_pagador = el.endereco_pagador.substring(0, 40)
-            }
+            
+            obj.endereco_pagador = el.endereco_pagador.toString().substring(0, 40)
             /*
             * Validação do bairro do pagador
             */
-            if ( !el.bairro_pagador ) {
+            if ( !el.bairro_pagador ) 
                 reject(`Parâmetro \`bairro_pagador\` é obrigatório ${objectIndex}`)
-            } else if ( el.bairro_pagador.length > 15 ) {
-                obj.bairro_pagador = el.bairro_pagador.substring(0, 15)
-            }        
+            
+            obj.bairro_pagador = el.bairro_pagador.toString().substring(0, 15)        
             /*
             * Validação CEP
             */
@@ -152,11 +149,10 @@ const validate = ( shipment ) => {
             /*
             * Validação da cidade do pagador
             */
-            if ( !el.cidade_pagador ) {
+            if ( !el.cidade_pagador ) 
                 reject(`Parâmetro \`cidade_pagador\` é obrigatório ${objectIndex}`)
-            } else if ( el.cidade_pagador.length > 15 ) {
-                obj.cidade_pagador = el.cidade_pagador.substring(0, 15)
-            }
+            
+            obj.cidade_pagador = el.cidade_pagador.toString().substring(0, 15)
             /*
             * Validação UF do pagador
             */

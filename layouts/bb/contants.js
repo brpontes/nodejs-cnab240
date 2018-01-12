@@ -6,7 +6,7 @@ const now = moment().format("HHmmss")
 const CONSTANTS = {
     HEADER: {
         COD_BANCO: '001',
-        NOME_BANCO: 'BANCO DO BRASIL S.A',
+        NOME_BANCO: 'BANCO DO BRASIL S.A.',
         TIPO_INSCRICAO: '2',
         INSCRICAO: '03377700000198',
         CONVENIO: '3061856',
@@ -15,7 +15,7 @@ const CONSTANTS = {
         COBRANCA_CEDENTE: '0014',
         AGENCIA: '29068',
         NUMERO_CONTA: '77771',
-        NOME_EMPRESA: 'SETYDEIAS SERVICOS LTDA.',
+        NOME_EMPRESA: 'SETYDEIAS SERVICOS LTDA',
         LOTE_SERVICO_ARQUIVO: leftPad('0', 4, '0'),
         LOTE_SERVICO_LOTE: '0001',
         TIPO_REGISTRO_ARQUIVO: '0',
@@ -52,7 +52,8 @@ const CONSTANTS = {
         NUM_DIAS_PROTESTO: '00',
         COD_BAIXA: '0',
         NUM_DIAS_BAIXA: '000',
-        MOEDA: '09'
+        MOEDA: '09',
+        PGTO_PARCIAL: '2'
     }
 }
 

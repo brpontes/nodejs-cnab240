@@ -1,8 +1,7 @@
 const data = [
     {
         cod_mov: '01',
-        nosso_numero: '30618560000000001',
-        numero_documento: '0000000001',
+        nosso_numero: '30618560000000000',
         data_vencimento: new Date(),
         valor_titulo: 10.30,
         data_emissao: new Date(2018, 0, 9),
