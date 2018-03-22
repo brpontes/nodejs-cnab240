@@ -9,7 +9,7 @@ module.exports = (() => {
 
             validate( shipping )
             .then( create )
-            .then( result => resolve(result))
+            .then( result => resolve(result) )
             .catch( err => reject(err) )
         })
     }
