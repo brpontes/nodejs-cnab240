@@ -1,7 +1,7 @@
 const moment = require('moment')
 const leftPad = require('left-pad')
 const TODAY = moment()
-const { HEADER } = require('../layouts/bb/constants')
+const { HEADER } = require('../../layouts/bb/constants')
 const { validCodMov, 
         validInscKind,
         validJurosKind,
@@ -9,14 +9,14 @@ const { validCodMov,
         validDescontoKind,
         validUF,
         isValidCPF,
-        isValidCNPJ } = require('./params')
+        isValidCNPJ } = require('../params')
 const NOSSO_NUMERO_LENGTH = 17
 
-const validateCobranca = () => {
+const validateCobranca = ( shipment ) => {
     return new Promise((resolve, reject) => {
-    
+        
         const isValidShipping = ( el, idx ) => {
-
+            
             if ( !(el instanceof Object) ) reject(`Deve ser um objeto literal [object index: ${idx}]`)
 
             const obj = Object.assign({}, el)

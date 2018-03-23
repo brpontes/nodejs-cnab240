@@ -53,7 +53,9 @@ const CONSTANTS = {
         COD_BAIXA: '0',
         NUM_DIAS_BAIXA: '000',
         MOEDA: '09',
-        PGTO_PARCIAL: '2'
+        PGTO_PARCIAL: '2',
+        TIPO_MOEDA: 'BRL',
+        QTDE_TIPO_MOEDA: '1'
     }
 }
 

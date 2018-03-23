@@ -1,7 +1,7 @@
 const leftPad = require('left-pad')
 const rightPad = require('right-pad')
 const os = require('os')
-const { HEADER, DETAIL } = require('../layouts/bb/contants')
+const { HEADER, DETAIL } = require('../layouts/bb/constants')
 
 const create = (shipping) => {
     
