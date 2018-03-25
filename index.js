@@ -1,4 +1,5 @@
 const create = require('./modules/create')
+const validate = require('./modules/validate')
 
 module.exports = (() => {
 
@@ -6,21 +7,7 @@ module.exports = (() => {
         return new Promise((resolve, reject) => {
             if ( !shipping ) throw 'Should contain an object array'
             
-            let validate 
-            
-            switch ( kind ) {
-                case 'COBRANCA':
-                    validate = require('./modules/validate/cobranca')
-                    break
-                case 'PAGAMENTO':
-                    validate = require('./modules/validate/pagamento')
-                    break
-                default:
-                    throw 'INFORME UM TIPO DE REMESSA VÁLIDO: COBRANCA || PAGAMENTO'
-                    break
-            }
-
-            validate( shipping )
+            validate( shipping, kind )
             .then( create )
             .then( result => resolve(result) )
             .catch( err => reject(err) )
