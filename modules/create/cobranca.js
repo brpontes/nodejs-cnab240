@@ -1,9 +1,9 @@
 const leftPad = require('left-pad')
 const rightPad = require('right-pad')
 const os = require('os')
-const { HEADER, DETAIL } = require('../layouts/bb/constants')
+const { HEADER, DETAIL } = require('../../layouts/bb/constants')
 
-const create = (shipping) => {
+module.exports = (( shipping ) => {
     
     let NUMERO_REGISTRO = 0
 
@@ -88,21 +88,17 @@ const create = (shipping) => {
         const SHIPPING_STRING_LENGTH = shipping.length * 3 + 4
         
         let trailer = `${HEADER.COD_BANCO}99999${leftPad('', 9)}${leftPad('1', 6, '0')}`
-        trailer += `${leftPad(SHIPPING_STRING_LENGTH, 6, '0')}${leftPad('', 211)}`
+        trailer += `${leftPad(SHIPPING_STRING_LENGTH, 6, '0')}${leftPad('', 211)}${os.EOL}`
 
         return trailer
     }
 
-    return new Promise((resolve, reject) => {
-        const shipping_content = (el) => `${segmento_p(el)}${segmento_q(el)}${segmento_r(el)}`
+    return {
+        header_file: () => header_file(),
+        header_lote: () => header_lote(),
+        segments: (shipping_detail) => `${segmento_p(shipping_detail)}${segmento_q(shipping_detail)}${segmento_r(shipping_detail)}`,
+        trailer_lote: (shipping) => trailer_lote(shipping),
+        trailer_file: (shipping) => trailer_file(shipping)
+    }
 
-        const get_header = `${header_file()}${header_lote()}`
-        const get_content = shipping.map( shipping_content ).join('')
-        const get_trailer = `${trailer_lote(shipping)}${trailer_file(shipping)}${os.EOL}`
-
-        resolve(`${get_header}${get_content}${get_trailer}`)
-    })
-
-}
-
-module.exports = create
+})()

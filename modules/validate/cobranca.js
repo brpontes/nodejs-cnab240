@@ -256,7 +256,7 @@ const validateCobranca = ( shipment ) => {
         
         if ( !(shipment instanceof Object) ) reject('Deve ser um array de objetos')
         
-        resolve(shipment.map( isValidShipping ))
+        resolve({shipping: shipment.map( isValidShipping ), kind: 'COBRANCA'})
     })
 }
 
