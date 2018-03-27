@@ -10,8 +10,7 @@ module.exports = (( shipping ) => {
     const header_file = () => {
         let header = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_ARQUIVO}${HEADER.TIPO_REGISTRO_ARQUIVO}${leftPad('', 9)}`
         header += `${HEADER.TIPO_INSCRICAO}${leftPad(HEADER.INSCRICAO, 14, '0')}`
-        header += `${leftPad(HEADER.CONVENIO, 9, '0')}${HEADER.COBRANCA_CEDENTE + HEADER.CARTEIRA + HEADER.VARIACAO_CARTEIRA}  `
-        header += `${leftPad(HEADER.AGENCIA, 6, '0')}${leftPad(HEADER.NUMERO_CONTA, 13, '0')} ${rightPad(HEADER.NOME_EMPRESA, 30)}`
+        header += `${rightPad(HEADER.CONVENIO_PAG, 20, ' ')}${leftPad(HEADER.AGENCIA, 6, '0')}${leftPad(HEADER.NUMERO_CONTA, 13, '0')}0${rightPad(HEADER.NOME_EMPRESA, 30)}`
         header += `${rightPad(HEADER.NOME_BANCO, 30)}${leftPad(' ', 10)}${HEADER.CODIGO_REM_RET}${HEADER.DATA_GERACAO}`
         header += `${HEADER.HORA_GERACAO}${HEADER.NSA}${HEADER.VERSAO_LEIAUTE}${leftPad('', 5, '0')}${leftPad(' ', 69)}${os.EOL}`
 
@@ -19,11 +18,10 @@ module.exports = (( shipping ) => {
     }
 
     const header_lote = () => {
-        let header = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}${HEADER.TIPO_REGISTRO_LOTE}${HEADER.TIPO_OPERACAO}${HEADER.TIPO_SERVICO}  `
-        header += `${HEADER.VERSAO_LEIAUTE} ${HEADER.TIPO_INSCRICAO}${leftPad(HEADER.INSCRICAO, 15, '0')}`
-        header += `${leftPad(HEADER.CONVENIO, 9, '0')}${HEADER.COBRANCA_CEDENTE}${HEADER.CARTEIRA}${HEADER.VARIACAO_CARTEIRA}`
-        header += `${leftPad(HEADER.TESTE, 2)}${leftPad(HEADER.AGENCIA, 6, '0')}${leftPad(HEADER.NUMERO_CONTA, 13, '0')} `
-        header += `${rightPad(HEADER.NOME_EMPRESA, 30)}${leftPad('', 80)}${leftPad('', 8, '0')}${HEADER.DATA_GERACAO}${leftPad('', 41)}${os.EOL}`
+        let header = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}${HEADER.TIPO_REGISTRO_LOTE}${HEADER.TIPO_OPERACAO_PAG}${HEADER.TIPO_SERVICO_PAG}01`
+        header += `${HEADER.VERSAO_LEIAUTE_PAG} ${HEADER.TIPO_INSCRICAO}${leftPad(HEADER.INSCRICAO, 14, '0')}`
+        header += `${rightPad(HEADER.CONVENIO_PAG, 20, ' ')}${leftPad(HEADER.AGENCIA, 6, '0')}${leftPad(HEADER.NUMERO_CONTA, 13, '0')}0`
+        header += `${rightPad(HEADER.NOME_EMPRESA, 30)}${leftPad('', 80)} ${leftPad('', 8, '0')}${HEADER.DATA_GERACAO}${leftPad('', 41)}${os.EOL}`
         
         return header
     }
