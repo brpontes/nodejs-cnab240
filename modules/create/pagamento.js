@@ -12,16 +12,16 @@ module.exports = (( shipping ) => {
         header += `${HEADER.TIPO_INSCRICAO}${leftPad(HEADER.INSCRICAO, 14, '0')}`
         header += `${rightPad(HEADER.CONVENIO_PAG, 20, ' ')}${leftPad(HEADER.AGENCIA, 6, '0')}${leftPad(HEADER.NUMERO_CONTA, 13, '0')}0${rightPad(HEADER.NOME_EMPRESA, 30)}`
         header += `${rightPad(HEADER.NOME_BANCO, 30)}${leftPad(' ', 10)}${HEADER.CODIGO_REM_RET}${HEADER.DATA_GERACAO}`
-        header += `${HEADER.HORA_GERACAO}${HEADER.NSA}${HEADER.VERSAO_LEIAUTE}${leftPad('', 5, '0')}${leftPad(' ', 69)}${os.EOL}`
+        header += `${HEADER.HORA_GERACAO}${HEADER.NSA}${HEADER.VERSAO_LEIAUTE_PAG_HEADER}${leftPad('', 5, '0')}${leftPad(' ', 69)}${os.EOL}`
 
        return header
     }
 
     const header_lote = () => {
-        let header = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}${HEADER.TIPO_REGISTRO_LOTE}${HEADER.TIPO_OPERACAO_PAG}${HEADER.TIPO_SERVICO_PAG}01`
+        let header = `${HEADER.COD_BANCO}${HEADER.LOTE_SERVICO_LOTE}${HEADER.TIPO_REGISTRO_LOTE}${HEADER.TIPO_OPERACAO_PAG}${HEADER.TIPO_SERVICO_PAG}${HEADER.FORMA_LANCAMENTO_PAG}`
         header += `${HEADER.VERSAO_LEIAUTE_PAG} ${HEADER.TIPO_INSCRICAO}${leftPad(HEADER.INSCRICAO, 14, '0')}`
         header += `${rightPad(HEADER.CONVENIO_PAG, 20, ' ')}${leftPad(HEADER.AGENCIA, 6, '0')}${leftPad(HEADER.NUMERO_CONTA, 13, '0')}0`
-        header += `${rightPad(HEADER.NOME_EMPRESA, 30)}${leftPad('', 80)} ${leftPad('', 8, '0')}${HEADER.DATA_GERACAO}${leftPad('', 41)}${os.EOL}`
+        header += `${rightPad(HEADER.NOME_EMPRESA, 30)}${rightPad(' ', 138, ' ')}${os.EOL}`
         
         return header
     }
