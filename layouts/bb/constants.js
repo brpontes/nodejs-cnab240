@@ -61,7 +61,7 @@ const CONSTANTS = {
         MOEDA: '09',
         PGTO_PARCIAL: '2',
         TIPO_MOEDA: 'BRL',
-        QTDE_TIPO_MOEDA: '1'
+        QTDE_TIPO_MOEDA: '0'
     }
 }
 
