@@ -7,12 +7,19 @@
     "type": "git",
     "url": "https://github.com/brunodev18/nodejs-cnab240.git"
   },
-  "scripts": {},
+  "scripts": {
+    "test": "jest",
+    "watch": "jest --watch",
+    "coverage": "jest --coverage"
+  },
   "author": "Bruno Pontes",
   "license": "ISC",
   "dependencies": {
     "left-pad": "^1.2.0",
     "moment": "^2.20.1",
     "right-pad": "^1.0.1"
+  },
+  "devDependencies": {
+    "jest": "^24.8.0"
   }
 }

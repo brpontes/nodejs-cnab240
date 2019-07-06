@@ -1,6 +1,5 @@
 const cnab240 = require('../index.js')
 const fs = require('fs')
-const datasource = require('./datasource')
 const datasource_pagamento = require('./datasource_pag')
 
 cnab240
