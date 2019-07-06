@@ -16,6 +16,6 @@ const company = {
 }
 
 cnab240
-    .init( company, datasource, 'COBRANCA' )
+    .init( datasource, 'COBRANCA' )
     .then( res => fs.writeFileSync('/home/bruno/workspace/TESTE.txt', res) )
     .catch( err => console.log(err) )

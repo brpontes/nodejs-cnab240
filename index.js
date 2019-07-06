@@ -3,7 +3,7 @@ const validate = require('./modules/validate')
 
 module.exports = (() => {
 
-    const init = ( profile = {}, shipping, kind = 'COBRANCA' ) => {
+    const init = ( shipping, kind = 'COBRANCA', profile = {} ) => {
         return new Promise((resolve, reject) => {
             if ( !shipping ) throw 'Should contain an object array'
             
