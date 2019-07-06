@@ -14,7 +14,7 @@ const data = [
         cod_aviso: '0',
         compl_tipo_servico: '01',
         tipo_inscricao_pagador: '1',
-        inscricao_pagador: '06319011327',
+        inscricao_pagador: '28493114057',
         logradouro: 'AVENIDA BERNARDO MANUEL',
         numero: '12570',
         bairro: 'PEQUENO MONDUBIM',

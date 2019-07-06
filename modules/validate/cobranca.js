@@ -7,9 +7,9 @@ const { validCodMov,
         validJurosKind,
         validMultaKind,
         validDescontoKind,
-        validUF,
-        isValidCPF,
-        isValidCNPJ } = require('../params')
+        validUF } = require('../params')
+const { isValidCPF, isValidCNPJ } = require('../util')
+
 const NOSSO_NUMERO_LENGTH = 17
 
 const validateCobranca = ( shipment ) => {

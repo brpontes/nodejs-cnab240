@@ -9,9 +9,8 @@ const { validTipoMov,
         validCodCamara,
         validCodAviso,
         validInscKind,
-        validUF,
-        isValidCPF,
-        isValidCNPJ } = require('../params')
+        validUF } = require('../params')
+const { isValidCPF, isValidCNPJ } = require('../util')
 
 const validatePag = ( shipment ) => {
     return new Promise((resolve, reject) => {
