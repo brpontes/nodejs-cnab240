@@ -1,19 +1,19 @@
 
-const getContext = ( kind ) => {
+const getContext = ( kind, profile) => {
     switch ( kind ) {
         case 'COBRANCA':
-            return require('./cobranca')
+            return require('./cobranca')(profile)
         case 'PAGAMENTO':
-            return require('./pagamento')
+            return require('./pagamento')(profile)
         default:
             throw 'INFORME UM TIPO DE REMESSA VÁLIDO: COBRANCA || PAGAMENTO'
     }
 }
 
-module.exports = ( obj ) => {
+module.exports = ( obj, profile ) => {
     return new Promise((resolve, reject) => {
-        const { shipping, kind } = obj
-        const context = getContext(kind)    
+        const { shipping, kind, profile } = obj
+        const context = getContext(kind, profile)    
         const header = `${context.header_file()}${context.header_lote()}`
         const shipping_content = (el) => context.segments(el)
         const content = shipping.map( shipping_content ).join('')

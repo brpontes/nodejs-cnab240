@@ -94,3 +94,22 @@ exports.isValidCPF = cpf => {
     
     return cpfTest(cpf)
 }
+/**
+ * Get bank name by cod
+ * @param {string} code
+ * @returns {string}
+ */
+exports.getBankNameByCode = code => {
+    switch ( code ) {
+        case '001':
+            return 'BANCO DO BRASIL S.A.'
+        case '104':
+            return 'CAIXA ECONOMICA FEDERAL'
+        case '237':
+            return 'BRADESCO S.A.'
+        case '341':
+            return 'ITAU'
+        default:
+            return 'INFORME UM CODIGO VALIDO'
+    }
+}

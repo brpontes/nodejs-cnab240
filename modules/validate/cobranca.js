@@ -12,12 +12,17 @@ const { isValidCPF, isValidCNPJ } = require('../util')
 
 const NOSSO_NUMERO_LENGTH = 17
 
-const validateCobranca = ( shipment ) => {
+module.exports = (shipment, profile) => {
+    
+    const { HEADER } = require('../../layouts/bb/constants')(profile)
+
     return new Promise((resolve, reject) => {
         
         const isValidShipping = ( el, idx ) => {
             
-            if ( !(el instanceof Object) ) reject(`Deve ser um objeto literal [object index: ${idx}]`)
+            if ( !(el instanceof Object) ) {
+                return reject(`Deve ser um objeto literal [object index: ${idx}]`)
+            }
 
             const obj = Object.assign({}, el)
             const objectIndex = `[object index: ${idx}]`
@@ -254,10 +259,10 @@ const validateCobranca = ( shipment ) => {
             return obj
         }    
         
-        if ( !(shipment instanceof Object) ) reject('Deve ser um array de objetos')
+        if ( !(shipment instanceof Object) ) return reject('Deve ser um array de objetos')
         
-        resolve({shipping: shipment.map( isValidShipping ), kind: 'COBRANCA'})
+        return resolve({shipping: shipment.map( isValidShipping ), kind: 'COBRANCA', profile})
     })
 }
 
-module.exports = validateCobranca
+//module.exports = validateCobranca
